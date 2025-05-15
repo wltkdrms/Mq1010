@@ -1,6 +1,6 @@
 public class Equipment {
     public String name;
-    public String rarity; //”common/rare/epic”
+    public String rarity;
     public int bonusAttack; //some equipment gives character more attack power
     public int bonusDefense; //some equipment gives character more defense power
     public StatusEffect statusEffect;
