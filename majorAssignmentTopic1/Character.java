@@ -10,29 +10,26 @@ public class Character {
     public SpecialMove specialMove;
     public String teamName; // e.g., "Team A" or "Team B"
 
-    /*
-     Constructs a Character with a name, race, max health, special move, and team name.
-     Attack and defense are initialized based on the character's race.
-     Health is set to maxHealth at the start.
-    */
+    /**
+     * Constructs a character with a race and optional equipment.
+     */
     public Character(String name, Race race, int maxHealth, SpecialMove specialMove, String teamName) {
         this.name = name;
         this.race = race;
         this.maxHealth = maxHealth;
         this.health = maxHealth;
-        this.attack = race.getBaseAttack(); // Set attack based on race's base value
-        this.defense = race.getBaseDefense(); // Set defense based on race's base value
-        this.specialUsed = false; // Special move is initially unused
+        this.attack = race.getBaseAttack();
+        this.defense = race.getBaseDefense();
+        this.specialUsed = false;
         this.specialMove = specialMove;
         this.teamName = teamName;
     }
 
-    // Core Action
-    /*
-     Attacks another character.
-     Damage is calculated as (attacker's attack - target's defense).
-     Damage can't go below zero.
-    */
+    // ====================== Core Actions =======================
+
+    /**
+     * Attacks a target character and deals damage based on attack vs defense.
+     */
     public void attack(Character target) {
         int totalAttack = this.attack;
         int damage = totalAttack - target.defense;
@@ -41,19 +38,17 @@ public class Character {
         System.out.println(name + " attacked " + target.name + " for " + damage + " damage.");
     }
 
-    /*
-     Reduces this character's health by a specified amount.
-     Health cannot go below 0.
-   */
+    /**
+     * Reduces this character's health by the given amount.
+     */
     public void takeDamage(int amount) {
         health -= amount;
         if (health < 0) health = 0;
     }
-    
-    /*
-      Uses the character's special move if it hasn't been used already.
-      Special moves can only be used once.
-    */
+
+    /**
+     * Uses the character's one-time special move.
+     */
     public void useSpecialMove() {
         if (!specialUsed && specialMove != null) {
             specialMove.apply(this);
@@ -64,10 +59,9 @@ public class Character {
         }
     }
 
-    /*
-      Equips an item that is compatible with the character's race.
-      Updates attack and defense based on the item's boost values.
-    */
+    /**
+     * Equips an item if it's compatible with the character's race.
+     */
     public void equipItem(Equipment item) {
         if (item.isCompatibleWith(this.race)) {
             this.equippedItem = item;
@@ -81,13 +75,13 @@ public class Character {
 
     public void increaseAttack (int amount){
         this.attack += amount;
-    } 
+    }
 
     public void increaseDefense (int amount){
         this.defense += amount;
     }
 
-    // Getters 
+    // ====================== Getters =======================
 
     public String getName() {
         return name;
@@ -108,9 +102,10 @@ public class Character {
     public boolean isSpecialUsed() {
         return specialUsed;
     }
-    //Returns a string with the character's current HP status and team.
+
     public String getStatus() {
-        return name + " [" + teamName + "] - HP: " + health + "/" + maxHealth;
+    return name + " [" + teamName + "] " + race.getName() + " - HP: " + health + "/" + maxHealth
+           + " | ATK: " + attack + ", DEF: " + defense;
     }
 
     public String getTeamName() {
