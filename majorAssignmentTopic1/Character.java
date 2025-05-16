@@ -41,9 +41,11 @@ public class Character {
     /**
      * Reduces this character's health by the given amount.
      */
-    public void takeDamage(int amount) {
-        health -= amount;
-        if (health < 0) health = 0;
+    public void takeDamage(int damage) {
+        this.health -= damage;
+        if (this.health < 0) {
+            this.health = 0;
+        }
     }
 
     /**
@@ -96,7 +98,7 @@ public class Character {
     }
 
     public boolean isAlive() {
-        return health > 0;
+        return this.health > 0;
     }
 
     public boolean isSpecialUsed() {
