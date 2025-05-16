@@ -8,8 +8,11 @@ public class Game {
     public Character currentPlayer;
     public ArrayList<String> battleLog;
     public boolean isGameOver;
-    public double randomEventChance = 0.3; // 30% chance each turn
+    public double randomEventChance = 0.1; // 10% chance each turn
     public Scanner scanner;
+    public BattleLogEntry battleLogHead;
+    public BattleLogEntry currentLog;
+
 
     public Game() {
         teamA = new Team("Team A");
@@ -50,8 +53,8 @@ public class Game {
 
         // Create characters
         Character a1 = new Character("Luna", elf, 100, surge, "Team A");
-        Character a2 = new Character("Grim", orc, 110, berserk, "Team A");
-        Character a3 = new Character("Elric", human, 95, fortify, "Team A");
+        Character a2 = new Character("Grim", orc, 100, berserk, "Team A");
+        Character a3 = new Character("Elric", human, 100, fortify, "Team A");
 
         a1.equipItem(elvenBow);
         a2.equipItem(orcShield);
@@ -62,8 +65,8 @@ public class Game {
         teamA.addMember(a3);
 
         Character b1 = new Character("Zara", elf, 100, surge, "Team B");
-        Character b2 = new Character("Thok", orc, 110, berserk, "Team B");
-        Character b3 = new Character("Riven", human, 95, fortify, "Team B");
+        Character b2 = new Character("Thok", orc, 100, berserk, "Team B");
+        Character b3 = new Character("Riven", human, 100, fortify, "Team B");
 
         b1.equipItem(elvenBow);
         b2.equipItem(orcShield);
@@ -154,6 +157,25 @@ public class Game {
     public void checkGameOver() {
         if (teamA.isDefeated() || teamB.isDefeated()) {
             isGameOver = true;
+        }
+    }
+
+    public void addToBattleLog(String message) {
+        BattleLogEntry newEntry = new BattleLogEntry(message);
+        if (battleLogHead == null) {
+            battleLogHead = newEntry;
+            currentLog = newEntry;
+        } else {
+            currentLog.setNextEntry(newEntry);
+            currentLog = newEntry;
+        }
+    }
+
+    public void printBattleLog() {
+        if (battleLogHead != null) {
+            battleLogHead.printLog();
+        } else {
+            System.out.println("No battle log available.");
         }
     }
 }
