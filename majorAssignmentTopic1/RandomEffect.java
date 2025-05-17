@@ -3,14 +3,14 @@ import java.util.Random;
 
 public class RandomEffect {
     public String name;
-    public String type; // e.g., "damageAll", "boostAttack"
+    public String type; 
     public int value;
 
     /**
      * Constructor for a random effect.
-     * @param name  effect name
-     * @param type  type of effect ("damageAll", "boostAttack", etc.)
-     * @param value how much to apply
+     * @param name  the display name of the effect
+     * @param type  type of effect 
+     * @param value numerical value the effect will apply
      */
     public RandomEffect(String name, String type, int value) {
         this.name = name;
@@ -18,13 +18,16 @@ public class RandomEffect {
         this.value = value;
     }
 
-    /**
-     * Applies the effect to all characters in the game.
+     /*
+     * Applies the effect to all alive characters in the game.
+     * For "damageAll", reduces each character’s HP by the value.
+     * For "boostAttack", increases each character’s attack stat.
+     * @param allCharacters List of all characters in both teams.
      */
     public void applyToAll(ArrayList<Character> allCharacters) {
         System.out.println("Random Event Triggered: " + name + "!");
         for (Character c : allCharacters) {
-            if (!c.isAlive()) continue;
+            if (!c.isAlive()) continue; //skip dead characters
 
             switch (type) {
                 case "damageAll":
@@ -35,7 +38,6 @@ public class RandomEffect {
                     c.increaseAttack(value);
                     System.out.println(c.getName() + "'s attack increased by " + value + ".");
                     break;
-                // Add more types here if needed
                 default:
                     System.out.println("Unknown effect type: " + type);
             }
@@ -67,7 +69,7 @@ public class RandomEffect {
             case 1:
                 return new RandomEffect("Battle Cry", "boostAttack", 5);
             default:
-                return new RandomEffect("Minor Shake", "damageAll", 5);
+                return new RandomEffect("Minor Shake", "damageAll", 5); // Fallback effect in case of unexpected roll value
         }
     }
 }
