@@ -25,7 +25,7 @@ public class RandomEffect {
      * @param allCharacters List of all characters in both teams.
      */
     public void applyToAll(ArrayList<Character> allCharacters) {
-        System.out.println("Random Event Triggered: " + name + "!");
+        System.out.println("Random Event Triggered: " + name + "!" + "brings Chaos. Brace yourselves!");
         for (Character c : allCharacters) {
             if (!c.isAlive()) continue; //skip dead characters
 
@@ -65,7 +65,7 @@ public class RandomEffect {
 
         switch (roll) {
             case 0:
-                return new RandomEffect("Fire spiral", "damageAll", 10);
+                return new RandomEffect("Fire Spiral", "damageAll", 10);
             case 1:
                 return new RandomEffect("Battle Doom", "boostAttack", 5);
             default:
