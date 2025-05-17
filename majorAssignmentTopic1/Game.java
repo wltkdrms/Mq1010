@@ -8,12 +8,13 @@ public class Game {
     public Character currentPlayer;
     public ArrayList<String> battleLog;
     public boolean isGameOver;
-    public double randomEventChance = 0.1; // 10% chance each turn
+    public double randomEventChance = 0.1; // 10% chance of random effect each turn
     public Scanner scanner;
+    // For linked-list style battle log (used in printBattleLog)
     public BattleLogEntry battleLogHead;
     public BattleLogEntry currentLog;
-
-
+    
+    //Constructor initializes teams, scanner, and game status.
     public Game() {
         teamA = new Team("Team A");
         teamB = new Team("Team B");
@@ -22,9 +23,7 @@ public class Game {
         scanner = new Scanner(System.in);
     }
 
-    /**
-     * Initializes the game: creates characters, assigns teams, and starts.
-     */
+    // Initializes the game: creates characters, assigns teams, and starts.   
     public void startGame() {
         setupTeams();
         chooseStartingPlayer();
@@ -32,16 +31,19 @@ public class Game {
         gameLoop();
     }
 
-    /**
-     * Sets up characters, races, equipment, and assigns to teams.
-     */
+   /*
+     * Prepares the game by:
+     * Creating races
+     * Defining equipment and special moves
+     * Creating characters and assigning them to teams
+   */
     public void setupTeams() {
-        // Define some races
+        // Define races with base stats
         Race elf = new Race("Elf", 15, 8);
         Race orc = new Race("Orc", 12, 12);
         Race human = new Race("Human", 10, 10);
 
-        // Define equipment
+        // Define race-specify equipment
         Equipment elvenBow = new Equipment("Elven Bow", 5, 0, elf);
         Equipment orcShield = new Equipment("Orc Shield", 0, 5, orc);
         Equipment sword = new Equipment("Steel Sword", 3, 2, human);
@@ -51,7 +53,7 @@ public class Game {
         SpecialMove fortify = new SpecialMove("Fortify", 0, 10);
         SpecialMove surge = new SpecialMove("Surge", 5, 5);
 
-        // Create characters
+        // Create Team A characters and equip them
         Character a1 = new Character("Luna", elf, 100, surge, "Team A");
         Character a2 = new Character("Grim", orc, 100, berserk, "Team A");
         Character a3 = new Character("Elric", human, 100, fortify, "Team A");
@@ -59,11 +61,12 @@ public class Game {
         a1.equipItem(elvenBow);
         a2.equipItem(orcShield);
         a3.equipItem(sword);
-
+        
         teamA.addMember(a1);
         teamA.addMember(a2);
         teamA.addMember(a3);
-
+        
+        // Create Team B characters and equip them
         Character b1 = new Character("Zara", elf, 100, surge, "Team B");
         Character b2 = new Character("Thok", orc, 100, berserk, "Team B");
         Character b3 = new Character("Riven", human, 100, fortify, "Team B");
@@ -77,27 +80,31 @@ public class Game {
         teamB.addMember(b3);
     }
 
-    /**
-     * Chooses a random starting player from either team.
-     */
+    //Randomly selects a starting player from either team.
     public void chooseStartingPlayer() {
         Random rand = new Random();
         currentPlayer = rand.nextBoolean() ? teamA.getRandomAliveCharacter() : teamB.getRandomAliveCharacter();
     }
 
-    /**
-     * Runs the turn-based game loop until one team is defeated.
-     */
+   /*
+     * Main turn-based loop of the game. Continues until a team is defeated.
+     * On each turn:
+     *  The current player selects an action (attack or special move)
+     *  The action is applied to a random enemy
+     *  A random effect may occur
+     *  The game checks for victory conditions
+     *  If game isn't over, turn switches
+    */
     public void gameLoop() {
         while (!isGameOver) {
             System.out.println("\nCurrent turn: " + currentPlayer.getName());
             System.out.println(currentPlayer.getStatus());
 
-            // Choose a random enemy
+            // Identify opposing team
             Team opponentTeam = currentPlayer.getTeamName().equals("Team A") ? teamB : teamA;
             Character target = opponentTeam.getRandomAliveCharacter();
 
-            // Action: Attack or Special?
+            // If special move not used, give player a choice
             if (!currentPlayer.isSpecialUsed()) {
                 System.out.println("Choose action: 1 = Attack, 2 = Use Special Move");
                 int choice = scanner.nextInt();
@@ -107,7 +114,7 @@ public class Game {
                     currentPlayer.attack(target);
                 }
             } else {
-                currentPlayer.attack(target);
+                currentPlayer.attack(target); // If special already used, auto-attack
             }
 
             // Maybe trigger a random event
@@ -119,7 +126,7 @@ public class Game {
                 switchTurn();
             }
         }
-
+        //end of game
         System.out.println("\n=== GAME OVER ===");
         if (teamA.isDefeated()) {
             System.out.println("Team B wins!");
@@ -128,38 +135,37 @@ public class Game {
         }
     }
 
-    /**
-     * Switches the current player to a random character on the opposing team.
-     */
+    //Switches turn to a random character from the opposing team.
     public void switchTurn() {
         Team currentTeam = currentPlayer.getTeamName().equals("Team A") ? teamA : teamB;
         Team opponentTeam = currentTeam == teamA ? teamB : teamA;
         currentPlayer = opponentTeam.getRandomAliveCharacter();
     }
 
-    /**
-     * Applies a random effect with a certain chance.
+    /*
+     * Triggers a random effect that applies to all characters,
+     * with a chance based on `randomEventChance`.
      */
     public void triggerRandomEffectMaybe() {
         Random rand = new Random();
         if (rand.nextDouble() < randomEventChance) {
             RandomEffect event = RandomEffect.generateRandomEffect();
+            // Combine all characters into one list
             ArrayList<Character> everyone = new ArrayList<>();
             everyone.addAll(teamA.getAllMembers());
             everyone.addAll(teamB.getAllMembers());
+            // Apply effect to all characters
             event.applyToAll(everyone);
         }
     }
 
-    /**
-     * Ends the game if a team is fully defeated.
-     */
+   //Checks if either team is fully defeated. If so, ends the game.
     public void checkGameOver() {
         if (teamA.isDefeated() || teamB.isDefeated()) {
             isGameOver = true;
         }
     }
-
+    //Adds a message to the battle log using a linked list of `BattleLogEntry` nodes.
     public void addToBattleLog(String message) {
         BattleLogEntry newEntry = new BattleLogEntry(message);
         if (battleLogHead == null) {
@@ -170,7 +176,7 @@ public class Game {
             currentLog = newEntry;
         }
     }
-
+    //Prints the full battle log from the head node.
     public void printBattleLog() {
         if (battleLogHead != null) {
             battleLogHead.printLog();
