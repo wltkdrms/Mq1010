@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.io.File;
+import java.io.PrintWriter;
+import java.io.IOException;
 
 public class Game {
     public Team teamA;
@@ -182,6 +185,27 @@ public class Game {
             battleLogHead.printLog();
         } else {
             System.out.println("No battle log available.");
+        }
+    }
+
+    // File I/O (write to file)
+    public void saveBattleLogToCSV(String filename) {
+        try {
+            PrintWriter writer = new PrintWriter(new File(filename));
+            writer.println("Turn,Message");
+
+            BattleLogEntry current = battleLogHead;
+            int turn = 1;
+            while (current != null) {
+                writer.println(turn + "," + current.getMessage());
+                current = current.getNextEntry();
+                turn++;
+            }
+
+            writer.close();
+            System.out.println("✅ Battle log saved to " + filename);
+        } catch (IOException e) {
+            System.out.println("❌ Error writing to file: " + e.getMessage());
         }
     }
 }
