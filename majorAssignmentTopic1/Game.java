@@ -1,9 +1,8 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import java.io.File;
-import java.io.PrintWriter;
 import java.io.IOException;
+import java.io.FileWriter;
 
 public class Game {
     public Team teamA;
@@ -43,12 +42,12 @@ public class Game {
     public void setupTeams() {
         // Define races with base stats
         Race elf = new Race("Elf", 15, 8);
-        Race orc = new Race("Orc", 12, 12);
+        Race goblin = new Race("Goblin", 12, 12);
         Race human = new Race("Human", 10, 10);
 
         // Define race-specify equipment
         Equipment elvenBow = new Equipment("Elven Bow", 5, 0, elf);
-        Equipment orcShield = new Equipment("Orc Shield", 0, 5, orc);
+        Equipment orcShield = new Equipment("Orc Shield", 0, 5, goblin);
         Equipment sword = new Equipment("Steel Sword", 3, 2, human);
 
         // Define special moves
@@ -57,9 +56,9 @@ public class Game {
         SpecialMove surge = new SpecialMove("Surge", 5, 5);
 
         // Create Team A characters and equip them
-        Character a1 = new Character("Luna", elf, 100, surge, "Team A");
-        Character a2 = new Character("Grim", orc, 100, berserk, "Team A");
-        Character a3 = new Character("Elric", human, 100, fortify, "Team A");
+        Character a1 = new Character("Luna", elf, 20, surge, "Team A");
+        Character a2 = new Character("Grim", goblin, 20, berserk, "Team A");
+        Character a3 = new Character("Elric", human, 20, fortify, "Team A");
 
         a1.equipItem(elvenBow);
         a2.equipItem(orcShield);
@@ -70,9 +69,9 @@ public class Game {
         teamA.addMember(a3);
         
         // Create Team B characters and equip them
-        Character b1 = new Character("Zara", elf, 100, surge, "Team B");
-        Character b2 = new Character("Thok", orc, 100, berserk, "Team B");
-        Character b3 = new Character("Riven", human, 100, fortify, "Team B");
+        Character b1 = new Character("Zara", elf, 20, surge, "Team B");
+        Character b2 = new Character("Thok", goblin, 20, berserk, "Team B");
+        Character b3 = new Character("Riven", human, 20, fortify, "Team B");
 
         b1.equipItem(elvenBow);
         b2.equipItem(orcShield);
@@ -130,9 +129,14 @@ public class Game {
             }
         }
         //end of game
-        System.out.println("\n=== GAME OVER ===");
+        System.out.println("GAME OVER ");
+        System.out.println("\n=== FINAL TEAM HEALTH ===");
+    System.out.println("Team A remaining Health: " + teamA.getTotalHealthRecursive());
+    System.out.println("Team B remaining Health: " + teamB.getTotalHealthRecursive());
+
         if (teamA.isDefeated()) {
             System.out.println("Team B wins!");
+            
         } else {
             System.out.println("Team A wins!");
         }
