@@ -5,16 +5,19 @@ public class Team {
     public String name;
     public ArrayList<Character> members;
 
-    /**
-     * Constructor to initialize a team with a name and character list.
-     */
+    /*
+    Constructor to initialize a team with a name and an empty character list.
+    @param name The name of the team
+    */
     public Team(String name) {
         this.name = name;
         this.members = new ArrayList<>();
     }
 
-    /**
-     * Adds a character to the team.
+     /*
+     * Adds a character to the team, if there are fewer than 3 members.
+     * Prevents teams from having more than 3 characters.
+     * @param character The character to be added to the team
      */
     public void addMember(Character character) {
         if (members.size() < 3) {
@@ -36,9 +39,7 @@ public class Team {
         return alive.get(rand.nextInt(alive.size()));
     }
 
-    /**
-     * Returns a list of characters who are still alive.
-     */
+     //Returns a list of characters who are still alive.
     public ArrayList<Character> getAliveCharacters() {
         ArrayList<Character> alive = new ArrayList<>();
         for (Character c : members) {
@@ -49,9 +50,7 @@ public class Team {
         return alive;
     }
 
-    /**
-     * Returns true if all characters are dead.
-     */
+    //Returns true if all characters are dead.
     public boolean isDefeated() {
         for (Character c : members) {
             if (c.isAlive()) return false;
@@ -74,24 +73,25 @@ public class Team {
         }
     }
 
-    /**
-    * Recursively calculates the total health of all alive characters in the team.
-    * @return total health of all alive characters
-    */
+    //Recursively calculates the total health of all alive characters on the team.
     public int getTotalHealthRecursive() {
         return getTotalHealthRecursiveHelper(members, 0);
     }
 
-    /**
-    * Helper method for recursion.
-    */
+     /*
+     * Helper method for the recursive total health calculation.
+     * @param list  The list of characters to sum health from
+     * @param index The current index in recursion
+     * return Cumulative health of alive characters from current index to end of list
+     */
     private int getTotalHealthRecursiveHelper(ArrayList<Character> list, int index) {
         if (index >= list.size()) {
-            return 0;
+            return 0; // Base case: reached end of list
         }
 
         Character c = list.get(index);
         int health = c.isAlive() ? c.getHealth() : 0;
+        // Recursive case: current health + rest of list
         return health + getTotalHealthRecursiveHelper(list, index + 1);
     }
 }
