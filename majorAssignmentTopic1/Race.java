@@ -5,9 +5,9 @@ public class Race {
     
     /**
      * Constructor to create a new Race with given attributes.
-     * @param name the name of the race
-     * @param baseAttack base attack strength
-     * @param baseDefense base defense strength
+     * @param name the display name of the race
+     * @param baseAttack the base attack strength
+     * @param baseDefense the base defense strength
      */
     public Race(String name, int baseAttack, int baseDefense) {
         this.name = name;
