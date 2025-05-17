@@ -65,11 +65,11 @@ public class RandomEffect {
 
         switch (roll) {
             case 0:
-                return new RandomEffect("Meteor Shower", "damageAll", 10);
+                return new RandomEffect("Fire spiral", "damageAll", 10);
             case 1:
-                return new RandomEffect("Battle Cry", "boostAttack", 5);
+                return new RandomEffect("Battle Doom", "boostAttack", 5);
             default:
-                return new RandomEffect("Minor Shake", "damageAll", 5); // Fallback effect in case of unexpected roll value
+                return new RandomEffect("Snowball", "damageAll", 5); // Fallback effect in case of unexpected roll value
         }
     }
 }
