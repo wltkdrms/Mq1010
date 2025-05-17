@@ -2,12 +2,12 @@ public class Race {
     public String name;
     public int baseAttack;
     public int baseDefense;
-
+    
     /**
      * Constructor to create a new Race with given attributes.
-     * @param name         the name of the race (e.g., Elf, Orc, Human)
-     * @param baseAttack   base attack strength
-     * @param baseDefense  base defense strength
+     * @param name the name of the race
+     * @param baseAttack base attack strength
+     * @param baseDefense base defense strength
      */
     public Race(String name, int baseAttack, int baseDefense) {
         this.name = name;
