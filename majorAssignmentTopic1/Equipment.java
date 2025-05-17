@@ -4,12 +4,12 @@ public class Equipment {
     public int defenseBoost;
     public Race compatibleRace;
 
-    /**
+    /*
      * Constructor to create an equipment item.
-     * @param name            name of the equipment (e.g., "Steel Sword", "Mystic Shield")
-     * @param attackBoost     attack boost provided by the equipment
-     * @param defenseBoost    defense boost provided by the equipment
-     * @param compatibleRace  the race that can use this equipment
+     * @param name Name of the equipment 
+     * @param attack boost Boost provided by the equipment
+     * @param defenseBoost Boost provided by the equipment
+     * @param compatibleRace  The race that can use this equipment
      */
     public Equipment(String name, int attackBoost, int defenseBoost, Race compatibleRace) {
         this.name = name;
@@ -35,16 +35,13 @@ public class Equipment {
         return compatibleRace;
     }
 
-    /**
+    /*
      * Checks if a given race can use this equipment.
-     * @param race the race to check compatibility with
      * @return true if compatible, false otherwise
      */
     public boolean isCompatibleWith(Race race) {
         return compatibleRace.getName().equalsIgnoreCase(race.getName());
     }
-
-    @Override
     public String toString() {
         return name + " (+" + attackBoost + " ATK, +" + defenseBoost + " DEF, Race: " + compatibleRace.getName() + ")";
     }
