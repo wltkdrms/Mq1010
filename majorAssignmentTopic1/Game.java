@@ -131,8 +131,8 @@ public class Game {
         //end of game
         System.out.println("GAME OVER ");
         System.out.println("\n=== FINAL TEAM HEALTH ===");
-    System.out.println("Team A remaining Health: " + teamA.getTotalHealthRecursive());
-    System.out.println("Team B remaining Health: " + teamB.getTotalHealthRecursive());
+        System.out.println("Team A remaining Health: " + teamA.getTotalHealthRecursive());
+        System.out.println("Team B remaining Health: " + teamB.getTotalHealthRecursive());
 
         if (teamA.isDefeated()) {
             System.out.println("Team B wins!");
