@@ -62,7 +62,9 @@ After the game ends:
 - The battle log is saved to `battle_log.txt`
 
 4. Task Allocation (Group Contribution)
-      All members contributed equally to reviewing and commenting on their assigned code sections. Code was divided evenly, and every member ensured clarity and documentation of their parts. We held weekly group meetings to ensure all work was completed on time and met the project deadlines. The work are seperate by: 
+      All members contributed equally to reviewing and commenting on their assigned code sections. Code was divided evenly, and every
+member ensured clarity and documentation of their parts. We held weekly group meetings to ensure all work was completed on time and met 
+the project deadlines. The work is separate by: 
 Sangkeun Ji 48791180 		
  • Developed methods such as startGame(), chooseStartingPlayer(), checkGameOver(), and addToBattleLog(), etc.		
  • Integrated turn control and random event triggers.		
@@ -92,4 +94,10 @@ Syeda Ruhana Masud 48613584
 
 5. UML Diagram
 6. Method Comparison Analysis
-      One of the key methods in our project is the saveBattleLogToCSV(String filename) in the Game class, which handles writing the battle log to a CSV file. In our project, we use a recursive data structure called BattleLogEntry to store combat messages, and we traverse it recursively to write each turn’s message to the file. This method is not only effective, but also satisfies the recursive structure requirement of the assignment. An alternative design could use an ArrayList<String> to store the log entries and iterate through it with a standard loop. While that approach is slightly more efficient for large datasets, our recursive solution is more elegant and allows us to demonstrate our understanding of recursive programming in a meaningful way. Overall, our choices balance clarity, modularity, and assignment requirements effectively.
+      One of the key methods in our project is the saveBattleLogToCSV(String filename) in the Game class, which handles writing the battle
+log to a CSV file. In our project, we use a recursive data structure called BattleLogEntry to store combat messages, and we traverse it
+recursively to write each turn’s message to the file. This method is not only effective, but also satisfies the recursive structure
+requirement of the assignment. An alternative design could use an ArrayList<String> to store the log entries and iterate through it with a
+standard loop. While that approach is slightly more efficient for large datasets, our recursive solution is more elegant and allows us to
+demonstrate our understanding of recursive programming in a meaningful way. Overall, our choices balance clarity, modularity, and
+assignment requirements effectively.
