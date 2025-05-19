@@ -37,7 +37,7 @@ public class Character {
         int damage = totalAttack - target.defense;
         if (damage < 0) damage = 0;
         target.takeDamage(damage);
-        System.out.println(name + " slashes at " + target.name + " dealing " + damage + " damage.");
+        Game.addToBattleLog(name + " attacked " + target.name + " for " + damage + " damage.");
     }
 
     /*
