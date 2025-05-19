@@ -28,7 +28,8 @@ This program is organized into classes that interact as follows:
     - Uses File I/O to save the battle log after the game ends  
     - Uses the `Team` and `Character` classes directly  
     - Maintains a linked list battle log using `BattleLogEntry` (used recursively)
- 3. `Team.java`- Manages team members, alive checks, and includes a recursive method `getTotalHealthRecursive()`which is used at the end of the game to calculate and display each team's remaining health.
+ 3. `Team.java`- Manages team members, alive checks, and includes a recursive method `getTotalHealthRecursive()`
+     which is used at the end of the game to calculate and display each team's remaining health.
  4. `Character.java`  
   → Uses:
     - A `Race` (defines base stats)
