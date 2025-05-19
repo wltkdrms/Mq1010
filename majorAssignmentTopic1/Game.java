@@ -13,8 +13,8 @@ public class Game {
     public double randomEventChance = 0.1; // 10% chance of random effect each turn
     public Scanner scanner;
     // For linked-list style battle log (used in printBattleLog)
-    public BattleLogEntry battleLogHead;
-    public BattleLogEntry currentLog;
+    public static BattleLogEntry battleLogHead;
+    public static BattleLogEntry currentLog;
     
     //Constructor initializes teams, scanner, and game status.
     public Game() {
@@ -173,7 +173,7 @@ public class Game {
         }
     }
     //Adds a message to the battle log using a linked list of `BattleLogEntry` nodes.
-    public void addToBattleLog(String message) {
+    public static void addToBattleLog(String message) {
         BattleLogEntry newEntry = new BattleLogEntry(message);
         if (battleLogHead == null) {
             battleLogHead = newEntry;
@@ -193,23 +193,20 @@ public class Game {
     }
 
     // File I/O (write to file)
-    public void saveBattleLogToCSV(String filename) {
-        try {
-            PrintWriter writer = new PrintWriter(new File(filename));
-            writer.println("Turn,Message");
+    public void saveBattleLogToCSV(String filename) throws IOException {
+        PrintWriter writer = new PrintWriter(new File(filename));
+        writer.println("Turn,Message");
 
-            BattleLogEntry current = battleLogHead;
-            int turn = 1;
-            while (current != null) {
-                writer.println(turn + "," + current.getMessage());
-                current = current.getNextEntry();
-                turn++;
-            }
+        BattleLogEntry current = battleLogHead;
+        int turn = 1;
 
-            writer.close();
-            System.out.println("✅ Battle log saved to " + filename);
-        } catch (IOException e) {
-            System.out.println("❌ Error writing to file: " + e.getMessage());
+        while (current != null) {
+            writer.println(turn + "," + current.getMessage());
+            current = current.getNextEntry();
+            turn++;
         }
+
+        writer.close();
+        System.out.println("✅ Battle log saved to " + filename);
     }
 }
