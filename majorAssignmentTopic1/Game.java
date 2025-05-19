@@ -136,9 +136,10 @@ public class Game {
 
         if (teamA.isDefeated()) {
             System.out.println("Team B wins!");
-            
+            Game.addToBattleLog("🎉  Team B wins!");
         } else {
             System.out.println("Team A wins!");
+            Game.addToBattleLog("🎉  Team A wins!");
         }
     }
 
