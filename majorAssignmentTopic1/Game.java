@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.io.File;
+import java.io.PrintWriter;
 import java.io.IOException;
-import java.io.FileWriter;
 
 public class Game {
     public Team teamA;
