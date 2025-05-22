@@ -84,7 +84,7 @@ public class Team {
      * @param index The current index in recursion
      * return Cumulative health of alive characters from current index to end of list
      */
-    private int getTotalHealthRecursiveHelper(ArrayList<Character> list, int index) {
+    public int getTotalHealthRecursiveHelper(ArrayList<Character> list, int index) {
         if (index >= list.size()) {
             return 0; // Base case: reached end of list
         }
