@@ -1,3 +1,4 @@
+import java.io.IOException;
 public class App {
     public static void main(String[] args) {
         Game game = new Game(); // Create the game instance
