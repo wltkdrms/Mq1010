@@ -1,0 +1,43 @@
+// Teams and Characters
+[Team{bg:pink}]1-* [Character{bg:aquamarine}]
+
+// Character relationships
+[Character]1-1 [Race{bg:royalblue}]
+[Character]1-1 [SpecialMove{bg:hotpink}]
+[Character]0..1-1 [Equipment{bg:maroon}]
+
+// Game relationships
+[Game{bg:green}]1-1 [Team]
+[Game]1-1 [Team]
+[Game]1-1 [BattleLogEntry{bg:mediumorchid}]
+
+// Battle log chaining
+[BattleLogEntry]0..1-1 [BattleLogEntry]
+
+// Random effects
+[RandomEffect{bg:plum}]1-* [Character]
+
+// Equipment compatibility
+[Equipment]1-1 [Race]
+
+[BattleLogEntry|message: String; nextEntry: BattleLogEntry|BattleLogEntry(): string;getMessage(): String;setNextEntry(nextEntry:BattleLogEntry):void;getNextEntry(): BattleLogEntry;printLog(): void]
+
+
+[Character|name: String;race: Race;health: int;maxHealth: int;attack: int;defense: int;equippedItem: Equipment;specialUsed: boolean;specialMove: SpecialMove;teamName: String|Character(name: String, race: Race, maxHealth: int, specialMove: SpecialMove, teamName: String);attack(target: Character): void;takeDamage(damage: int): void;useSpecialMove(): void;equipItem(item: Equipment): void;increaseAttack(amount: int): void;increaseDefense(amount: int): void;getName(): String;getRace(): Race;getHealth(): int;isAlive(): boolean;isSpecialUsed(): boolean;getStatus(): String;getTeamName(): String]
+
+
+[Equipment|name: String; attackBoost: int;defenseBoost: int;compatibleRace: Race| Equipment(name: String, attackBoost: int,defenseBoost: int, compatibleRace: Race); getName(): String; getAttackBoost(): int;getDefenseBoost():int;getCompatibleRace(): Race;isCompatibleWith(race: Race): boolean;toString(): String]
+
+
+
+[Game| teamA: Team; teamB: Team;currentPlayer:Character;battleLog:ArrayList<String>;isGameOver: boolean:randomEventChance: double;scanner:Scanner;battleLogHead:BattleLogEntry;currentLog: BattleLogEntry | Game();startGame(): void; setupTeams(): void; chooseStartingPlayer(): void; gameLoop(): void;switchTurn(): void;triggerRandomEffectMaybe(): void;checkGameOver(): void;addToBattleLog(message: String): void;printBattleLog(): void;saveBattleLogToCSV(filename: String): void]
+
+
+[Race|name: String; baseAttack: int;baseDefense: int|Race(name: String, baseAttack: int, baseDefense: int);getName(): String;getBaseAttack(): int;getBaseDefense(): int;toString(): String]
+
+ [RandomEffect|name: String;type: String;value: int| RandomEffect(name: String, type: String, value: int); applyToAll(allCharacters: ArrayList);getName(): String; getType(): String;getValue(): int; generateRandomEffect(): RandomEffect]
+
+[SpecialMove|name: String;attackBoost: int; defenseBoost: int|SpecialMove(name: String, attackBoost: int; defenseBoost: int); apply(character: Character); getName(): String; toString(): String]
+
+
+[Team| name: String; members: ArrayList| Team(name: String); addMember(character: Character): void; getRandomAliveCharacter(): Character; getAliveCharacters(): ArrayList;isDefeated(): boolean; getAllMembers(): ArrayList; getName(): String; printTeamStatus(): void;getTotalHealthRecursive(): int]
