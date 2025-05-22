@@ -25,7 +25,8 @@ public class RandomEffect {
      * @param allCharacters List of all characters in both teams.
      */
     public void applyToAll(ArrayList<Character> allCharacters) {
-        System.out.println("Random Event Triggered: " + name + "!" + "brings Chaos. Brace yourselves!");
+        System.out.println("Random Event Triggered: " + name + "! brings Chaos. Brace yourselves!");
+        Game.addToBattleLog("Random Event Triggered: " + name + "! brings Chaos. Brace yourselves!");
         for (Character c : allCharacters) {
             if (!c.isAlive()) continue; //skip dead characters
 
