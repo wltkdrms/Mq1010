@@ -20,6 +20,7 @@ public class SpecialMove {
         character.increaseAttack(attackBoost);
         character.increaseDefense(defenseBoost);
         System.out.println(character.getName() + " gains +" + attackBoost + " ATK and +" + defenseBoost + " DEF from " + name + "!");
+        Game.addToBattleLog(character.getName() + " gains +" + attackBoost + " ATK and +" + defenseBoost + " DEF from " + name + "!");
     }
 
     public String getName() {
@@ -28,5 +29,6 @@ public class SpecialMove {
     
     public String toString() {
         return name + " (+ATK: " + attackBoost + ", +DEF: " + defenseBoost + ")";
+        
     }
 }
