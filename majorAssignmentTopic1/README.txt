@@ -52,7 +52,7 @@ This program is organized into classes that interact as follows:
 - Open the project in a Java IDE (VS Code)
 - Ensure all `.java` files are in the same `src/` folder or appropriate package
 - Compile the program
-- Run `Main.java`
+- Run `Client.java`
 
 During gameplay:
 - Enter `1` to perform an attack
@@ -65,29 +65,79 @@ After the game ends:
 4. Task Allocation (Group Contribution)
       All members contributed to reviewing and commenting on their assigned code sections. Code was divided evenly, and every
 member ensured clarity and documentation of their parts. We held weekly group meetings to ensure all work was completed on time and met 
-the project deadlines. The work is separate by: 
-Sangkeun Ji 48791180 		
+the project deadlines. The work is separated by: 
+25% - Sangkeun Ji 48791180 		
  • Developed methods such as startGame(), chooseStartingPlayer(), checkGameOver(), and addToBattleLog(), etc.		
  • Integrated turn control and random event triggers.		
  • Conducted unit tests simulating turn sequences and verifying timing and battle log accuracy.
-Rishika Beedassy 48474762
+ • Responsible for the Unit testing
+25% - Rishika Beedassy 48474762
  • Developed the Character class, including combat methods like attack(), useSpecialMove(), and takeDamage().		
  • Implemented core game logic in the Game classes.
  • Linked characters with Equipment, Race, and StatusEffect.		
  • Co-authored the README.txt.		
  • Tested character behaviors including healing, buffing, equipping, and special move use.
-Hemisa Pinweha 48479217
+25% - Hemisa Pinweha 48479217
  • Implemented Equipment and Race classes and core game logic in the Game classes.
  • Designed attack/defense bonuses and power levels.		
  • Created mock items and races for testing.		
  • Co-authored the README.txt.		
  • Responsible for File I/O (read/write) and assisted in testing integration.
-Syeda Ruhana Masud 48613584
+25% - Syeda Ruhana Masud 48613584
  • Developed StatusEffect with expiry logic and applyEffect() methods.		
  • Implemented the RandomEvent class to apply effects across characters.		
- • Responsible for the UML diagram and testing all status-related and event-driven interactions.
+ • Responsible for the UML diagram.
+ • Designed the game flow and how the game is going to look like. 
 
 5. UML Diagram
+LINK: https://yuml.me/dcee28fd.png
+
+// Teams and Characters
+[Team{bg:pink}]1-* [Character{bg:aquamarine}]
+
+// Character relationships
+[Character]1-1 [Race{bg:royalblue}]
+[Character]1-1 [SpecialMove{bg:hotpink}]
+[Character]0..1-1 [Equipment{bg:maroon}]
+
+// Game relationships
+[Game{bg:green}]1-1 [Team]
+[Game]1-1 [Team]
+[Game]1-1 [BattleLogEntry{bg:mediumorchid}]
+
+// Battle log chaining
+[BattleLogEntry]0..1-1 [BattleLogEntry]
+
+// Random effects
+[RandomEffect{bg:plum}]1-* [Character]
+
+// Equipment compatibility
+[Equipment]1-1 [Race]
+
+//BattleLogEntry Class
+[BattleLogEntry|message: String; nextEntry: BattleLogEntry|BattleLogEntry(): string;getMessage(): String;setNextEntry(nextEntry:BattleLogEntry):void;getNextEntry(): BattleLogEntry;printLog(): void]
+
+//Character Class
+[Character|name: String;race: Race;health: int;maxHealth: int;attack: int;defense: int;equippedItem: Equipment;specialUsed: boolean;specialMove: SpecialMove;teamName: String|Character(name: String, race: Race, maxHealth: int, specialMove: SpecialMove, teamName: String);attack(target: Character): void;takeDamage(damage: int): void;useSpecialMove(): void;equipItem(item: Equipment): void;increaseAttack(amount: int): void;increaseDefense(amount: int): void;getName(): String;getRace(): Race;getHealth(): int;isAlive(): boolean;isSpecialUsed(): boolean;getStatus(): String;getTeamName(): String]
+
+//Equipment Class
+[Equipment|name: String; attackBoost: int;defenseBoost: int;compatibleRace: Race| Equipment(name: String, attackBoost: int,defenseBoost: int, compatibleRace: Race); getName(): String; getAttackBoost(): int;getDefenseBoost():int;getCompatibleRace(): Race;isCompatibleWith(race: Race): boolean;toString(): String]
+
+//Game Class
+[Game| teamA: Team; teamB: Team;currentPlayer:Character;battleLog:ArrayList;isGameOver: boolean; randomEventChance: double; Scanner:scanner;battleLogHead:BattleLogEntry;currentLog: BattleLogEntry | Game();startGame(): void; setupTeams(): void; chooseStartingPlayer(): void; gameLoop(): void;switchTurn(): void;triggerRandomEffectMaybe(): void;checkGameOver(): void;addToBattleLog(message: String): void;printBattleLog(): void;saveBattleLogToCSV(filename: String): void]
+
+//Race Class
+[Race|name: String; baseAttack: int;baseDefense: int|Race(name: String, baseAttack: int, baseDefense: int);getName(): String;getBaseAttack(): int;getBaseDefense(): int;toString(): String]
+
+//RandomEffect class
+ [RandomEffect|name: String;type: String;value: int| RandomEffect(name: String, type: String, value: int); applyToAll(allCharacters: ArrayList);getName(): String; getType(): String;getValue(): int; generateRandomEffect(): RandomEffect]
+
+//SpecialMove class
+[SpecialMove|name: String;attackBoost: int; defenseBoost: int|SpecialMove(name: String, attackBoost: int; defenseBoost: int); apply(character: Character); getName(): String; toString(): String]
+
+//Team class
+[Team| name: String; members: ArrayList| Team(name: String); addMember(character: Character): void; getRandomAliveCharacter(): Character; getAliveCharacters(): ArrayList;isDefeated(): boolean; getAllMembers(): ArrayList; getName(): String; printTeamStatus(): void;getTotalHealthRecursive(): int]
+
 6. Method Comparison Analysis
       One of the key methods in our project is the saveBattleLogToCSV(String filename) in the Game class, which handles writing the battle
 log to a CSV file. In our project, we use a recursive data structure called BattleLogEntry to store combat messages, and we traverse it
@@ -96,3 +146,4 @@ requirement of the assignment. An alternative design could use an ArrayList<Stri
 standard loop. While that approach is slightly more efficient for large datasets, our recursive solution is more elegant and allows us to
 demonstrate our understanding of recursive programming in a meaningful way. Overall, our choices balance clarity, modularity, and
 assignment requirements effectively.
+      Another important method is the attack(Character target) method in the Character class. In our current implementation, this method directly calculates the damage by subtracting the target's defense from the attacker's attack value, ensuring the damage is never negative. While this works fine, an alternative and more modular approach would be to move the damage calculation into a separate helper method, such as calculateDamage(). This would make the code easier to read, test, and reuse in other combat-related methods, such as special moves or random event handling. Delegating responsibilities to helper methods keeps the main logic cleaner and better organized.
