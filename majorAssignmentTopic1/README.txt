@@ -63,19 +63,16 @@ After the game ends:
 - The battle log is saved to `battle_log.txt`
 
 4. Task Allocation (Group Contribution)
-      All members contributed equally to reviewing and commenting on their assigned code sections. Code was divided evenly, and every
+      All members contributed to reviewing and commenting on their assigned code sections. Code was divided evenly, and every
 member ensured clarity and documentation of their parts. We held weekly group meetings to ensure all work was completed on time and met 
 the project deadlines. The work is separate by: 
 Sangkeun Ji 48791180 		
  • Developed methods such as startGame(), chooseStartingPlayer(), checkGameOver(), and addToBattleLog(), etc.		
  • Integrated turn control and random event triggers.		
- • Built the Duration class for tracking playtime.		
- • Managed File I/O for saving logs and loading player stats.		
  • Conducted unit tests simulating turn sequences and verifying timing and battle log accuracy.
 Rishika Beedassy 48474762
  • Developed the Character class, including combat methods like attack(), useSpecialMove(), and takeDamage().		
  • Implemented core game logic in the Game classes.
- • Handled team logic (hero/villain) and status interactions.		
  • Linked characters with Equipment, Race, and StatusEffect.		
  • Co-authored the README.txt.		
  • Tested character behaviors including healing, buffing, equipping, and special move use.
@@ -83,14 +80,11 @@ Hemisa Pinweha 48479217
  • Implemented Equipment and Race classes and core game logic in the Game classes.
  • Designed attack/defense bonuses and power levels.		
  • Created mock items and races for testing.		
- • Tested equipment-based buffs and race logic (e.g., magician > warrior).		
  • Co-authored the README.txt.		
  • Responsible for File I/O (read/write) and assisted in testing integration.
 Syeda Ruhana Masud 48613584
  • Developed StatusEffect with expiry logic and applyEffect() methods.		
- • Created events like Poison, Burn, and Curse.		
  • Implemented the RandomEvent class to apply effects across characters.		
- • Collaborated with Ji to integrate event triggers in the game flow.		
  • Responsible for the UML diagram and testing all status-related and event-driven interactions.
 
 5. UML Diagram
