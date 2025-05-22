@@ -37,7 +37,8 @@ public class Character {
         int damage = totalAttack - target.defense;
         if (damage < 0) damage = 0;
         target.takeDamage(damage);
-        Game.addToBattleLog(name + ": " + teamName + " attacked " + target.name + ": " + target.teamName + " for " + damage + " damage.");
+        System.out.println(name + " slashes at " + target.name + " dealing " + damage + " damage.");
+        Game.addToBattleLog(name + " slashes at " + target.name + " dealing " + damage + " damage.");
     }
 
     /*
@@ -60,6 +61,7 @@ public class Character {
             specialMove.apply(this);
             specialUsed = true;
             System.out.println(name + " used their special move: " + specialMove.getName() + "!");
+            Game.addToBattleLog(name + " used their special move: " + specialMove.getName() + "!");
         } else {
             System.out.println (name + " has already used Special Move.");
         }
@@ -114,6 +116,7 @@ public class Character {
     public String getStatus() {
     return name + " [" + teamName + "] " + race.getName() + " - HP: " + health + "/" + maxHealth
            + " | ATK: " + attack + ", DEF: " + defense;
+           
     }
 
     public String getTeamName() {
