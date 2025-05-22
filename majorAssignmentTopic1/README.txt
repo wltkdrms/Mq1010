@@ -167,9 +167,13 @@ LINK: https://yuml.me/dcee28fd.png
 6. Method Comparison Analysis
       One of the key methods in our project is the saveBattleLogToCSV(String filename) in the Game class, which handles writing the battle
 log to a CSV file. In our project, we use a recursive data structure called BattleLogEntry to store combat messages, and we traverse it
-recursively to write each turn’s message to the file. This method is not only effective, but also satisfies the recursive structure
+recursively to write each turn’s message to the file. This method is not only effective but also satisfies the recursive structure
 requirement of the assignment. An alternative design could use an ArrayList<String> to store the log entries and iterate through it with a
 standard loop. While that approach is slightly more efficient for large datasets, our recursive solution is more elegant and allows us to
-demonstrate our understanding of recursive programming in a meaningful way. Overall, our choices balance clarity, modularity, and
+demonstrate our understanding of recursive programming meaningfully. Overall, our choices balance clarity, modularity, and
 assignment requirements effectively.
-      Another important method is the attack(Character target) method in the Character class. In our current implementation, this method directly calculates the damage by subtracting the target's defense from the attacker's attack value, ensuring the damage is never negative. While this works fine, an alternative and more modular approach would be to move the damage calculation into a separate helper method, such as calculateDamage(). This would make the code easier to read, test, and reuse in other combat-related methods, such as special moves or random event handling. Delegating responsibilities to helper methods keeps the main logic cleaner and better organized.
+      Another important method is the attack(Character target) method in the Character class. In our current implementation, this method
+directly calculates the damage by subtracting the target's defense from the attacker's attack value, ensuring the damage is never negative.
+While this works fine, an alternative and more modular approach would be to move the damage calculation into a separate helper method, such
+as calculateDamage(). This would make the code easier to read, test, and reuse in other combat-related methods, such as special moves or
+random event handling. Delegating responsibilities to helper methods keeps the main logic cleaner and better organized.
