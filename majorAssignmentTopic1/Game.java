@@ -132,15 +132,16 @@ public class Game {
         //end of game
         System.out.println("GAME OVER ");
         System.out.println("\n=== FINAL TEAM HEALTH ===");
-        System.out.println("Team A remaining Health: " + teamA.getTotalHealthRecursive());
-        System.out.println("Team B remaining Health: " + teamB.getTotalHealthRecursive());
+    System.out.println("Team A remaining Health: " + teamA.getTotalHealthRecursive());
+    System.out.println("Team B remaining Health: " + teamB.getTotalHealthRecursive());
 
         if (teamA.isDefeated()) {
+            Game.addToBattleLog("Team B wins!");
             System.out.println("Team B wins!");
-            Game.addToBattleLog("🎉  Team B wins!");
+            
         } else {
+            Game.addToBattleLog("Team A wins!");
             System.out.println("Team A wins!");
-            Game.addToBattleLog("🎉  Team A wins!");
         }
     }
 
@@ -195,6 +196,7 @@ public class Game {
     }
 
     // File I/O (write to file)
+      // File I/O (write to file)
     public void saveBattleLogToCSV(String filename) throws IOException {
         PrintWriter writer = new PrintWriter(new File(filename));
         writer.println("Turn,Message");
