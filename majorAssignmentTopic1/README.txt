@@ -10,6 +10,7 @@ Each team has three characters, and the game progresses in alternating turns unt
 At the start, one random character is selected as the first player.
 Then, after each turn, control switches to a random alive character from the opposing team.
 This continues until all characters on one team are defeated.
+In the end, all major events (such as character attacks and the random events triggered) is saved to a battle_log.csv file.
 
 Characters take one of the following actions on their turn:
 -Perform a basic attack
@@ -18,7 +19,7 @@ Characters take one of the following actions on their turn:
 
 2. Structure of the Program
 This program is organized into classes that interact as follows:
- 1.`Main.java`-Launches the game and calls `Game.startGame()` and `saveBattleLogToFile()`
+ 1.`Client.java`-Launches the game and calls `Game.startGame()` and `saveBattleLogToCSV()`
  2. 'Game.java`  
     → Orchestrates the entire game:
     - Sets up characters and teams
@@ -44,9 +45,34 @@ This program is organized into classes that interact as follows:
     - Effects like `"Fire Spiral"`, `"Battle Doom"`, and `"snowball"` are applied
     - Effects are applied to all characters via a loop
 - `BattleLogEntry.java`  
-  → A recursive, linked log structure used to store and print battle messages
+  → Recursively prints battle messages
   → Used by `Game` to store turn-by-turn logs  
-  → Method: `printLog()` is implemented **recursively**
+  → Method: `printLog()` is implemented recursively.
+This program has the following Test Classes:
+(i)CharacterTest 
+- Checks that character is alive immediately after creation
+- Confirms character is dead after taking full damage
+- Confirms character is still alive after partial damage
+(ii)EquipmentTest
+- Equipping compatible race items increases attack/defense
+- Equipping incompatible items is ignored
+(iii)GameTest
+- Teams are initialized properly on creation
+- setupTeams() adds members to each team
+- Battle logs are added using linked list structure
+- Game ends when a team is fully defeated
+- Switching turns changes the current player
+(iv)BattleLogEntryTest
+- Log message is stored correctly in constructor
+- Next entry can be set and retrieved
+- Linked log entries can be chained correctly
+(v)RandomEffectTest
+- generateRandomEffect() produces valid effect types
+- 'damageAll' reduces HP of living characters
+- 'boostAttack' increases character attack
+- Dead characters are not affected by random effects
+(vi)TestAll
+- Executes all test classes together in a unified suite*
 
 3. How to Run the Program
 - Open the project in a Java IDE (VS Code)
